@@ -28,9 +28,9 @@ const Heros: React.FC = () => {
             <FBXTest
               fbxName="Pepito.fbx"
               color="#ff6347" // Color personalizado
-              colorMapPath="/tex/Skin_04_basecolor.jpg" // Nueva textura de color
-              normalMapPath="/tex/Skin_04_basecolor.jpg" // Nueva textura normal
-              roughnessMapPath="/tex/r1.jpg" // Nueva textura de rugosidad
+              colorMapPath="/textures/Skin_04_basecolor.jpg" // Nueva textura de color
+              normalMapPath="/textures/Skin_04_basecolor.jpg" // Nueva textura normal
+              roughnessMapPath="/textures/r1.jpg" // Nueva textura de rugosidad
               metalness={0.8} // Metalness personalizado
               roughness={0.5} // Roughness personalizado
               autoRotateSpeed={3} // Velocidad de rotación más rápida
@@ -41,9 +41,9 @@ const Heros: React.FC = () => {
           {hero === "Octupits" && <FBXTest
             fbxName="Pepito.fbx"
             color="#ff6347" // Color personalizado
-            colorMapPath="/tex/t2.jpg" // Nueva textura de color
-            normalMapPath="/tex/t2.jpg" // Nueva textura normal
-            roughnessMapPath="/tex/t1.jpg" // Nueva textura de rugosidad
+            colorMapPath="/textures/t2.jpg" // Nueva textura de color
+            normalMapPath="/textures/t2.jpg" // Nueva textura normal
+            roughnessMapPath="/textures/t1.jpg" // Nueva textura de rugosidad
             metalness={0.8} // Metalness personalizado
             roughness={0.5} // Roughness personalizado
             autoRotateSpeed={3} // Velocidad de rotación más rápida
