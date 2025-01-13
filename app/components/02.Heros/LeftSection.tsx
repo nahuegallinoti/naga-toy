@@ -3,7 +3,8 @@ import Divider from "../Shared/Divider";
 
 const data = [
   "Pepito",
-  "Octupits",
+  "Gear",
+  "Submarine",
 ];
 
 const LeftSection = ({ handleMouseEnter }: any) => {

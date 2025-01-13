@@ -10,8 +10,9 @@ interface RightSectionProps {
 
 const RightSection: React.FC<RightSectionProps> = ({ hero, onRotateToggle, rotate }) => {
   const descriptions: Record<string, string> = {
-    Pepito: "A fearless adventurer with a passion for uncovering the unknown. Always at the frontlines, Pepito faces every challenge head-on with a smile.",
-    Octupits: "A creature from the depths of the ocean, Octupits commands the seas. With its many limbs, it navigates both the ocean and the mysteries of the world effortlessly.",
+    Pepito: "A fearless adventurer driven by a thirst for discovery. Always leading the charge, Pepito tackles every challenge with unwavering determination and a contagious smile.",
+    Gear: "An ingenious inventor who thrives on innovation. With a knack for solving complex problems, Gear transforms ideas into reality, shaping a future full of possibilities.",
+    Submarine: "A mechanical marvel designed for deep-sea exploration. The Submarine braves the ocean's depths with precision and resilience, uncovering secrets hidden beneath the waves.",
   };
 
   return (

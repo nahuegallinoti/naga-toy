@@ -5,6 +5,7 @@ import LeftSection from "./LeftSection";
 import RightSection from "./RightSection";
 import ModelVisualizer from "../Shared/ModelVisualizer";
 import FBXTest from "../Shared/3DModels/FBXTest";
+import GltfTest from "../Shared/3DModels/GltfTest";
 
 const Heros: React.FC = () => {
   const [hero, setHero] = useState<string>("Pepito");
@@ -24,32 +25,49 @@ const Heros: React.FC = () => {
 
       <div className="flex flex-col justify-center w-2/3 items-center h-full m-auto">
         <ModelVisualizer rotate={rotate}>
-          {hero === "Pepito" &&
+
+        {hero === "Pepito" &&
             <FBXTest
               fbxName="Pepito.fbx"
-              color="#ff6347" // Color personalizado
+              color="#1596cd" // Color personalizado
               colorMapPath="/textures/Skin_04_basecolor.jpg" // Nueva textura de color
               normalMapPath="/textures/Skin_04_basecolor.jpg" // Nueva textura normal
               roughnessMapPath="/textures/r1.jpg" // Nueva textura de rugosidad
-              metalness={0.8} // Metalness personalizado
+              metalness={0.1} // Metalness personalizado
+              roughness={0.2} // Roughness personalizado
+              autoRotateSpeed={3} // Velocidad de rotación más rápida
+              sparklesEnabled={false} // Desactivar los destellos
+              environmentPreset="sunset" // Cambiar el entorno a "sunset"
+            />}
+
+        {hero === "Gear" &&
+            <GltfTest
+              gltfPath="/gltf/Gear2.gltf"
+              color="#ff6347" // Color personalizado
+              colorMapPath="/gltf/textures/baseColor.jpg" // Nueva textura de color
+              normalMapPath="/textures/Skin_04_normal.jpg" // Nueva textura normal
+              roughnessMapPath="/gltf/textures/occlusionRoughnessMetallic.jpg" // Nueva textura de rugosidad
+              metalness={1} // Metalness personalizado
               roughness={0.5} // Roughness personalizado
               autoRotateSpeed={3} // Velocidad de rotación más rápida
               sparklesEnabled={false} // Desactivar los destellos
               environmentPreset="sunset" // Cambiar el entorno a "sunset"
             />}
 
-          {hero === "Octupits" && <FBXTest
-            fbxName="Pepito.fbx"
-            color="#ff6347" // Color personalizado
-            colorMapPath="/textures/t2.jpg" // Nueva textura de color
-            normalMapPath="/textures/t2.jpg" // Nueva textura normal
-            roughnessMapPath="/textures/t1.jpg" // Nueva textura de rugosidad
-            metalness={0.8} // Metalness personalizado
-            roughness={0.5} // Roughness personalizado
-            autoRotateSpeed={3} // Velocidad de rotación más rápida
-            sparklesEnabled={false} // Desactivar los destellos
-            environmentPreset="forest" // Cambiar el entorno a "sunset"
-          />}
+        {hero === "Submarine" &&
+            <FBXTest
+              fbxName="Submarine.fbx"
+              color="#ffd70a" // Color personalizado
+              colorMapPath="/textures/Skin_04_basecolor.jpg" // Nueva textura de color
+              normalMapPath="/textures/t1.jpg" // Nueva textura normal
+              roughnessMapPath="/textures/t2.jpg" // Nueva textura de rugosidad
+              metalness={0} // Metalness personalizado
+              roughness={0} // Roughness personalizado
+              autoRotateSpeed={3} // Velocidad de rotación más rápida
+              sparklesEnabled={false} // Desactivar los destellos
+              environmentPreset="sunset" // Cambiar el entorno a "sunset"
+            />}
+
         </ModelVisualizer>
       </div>
 
