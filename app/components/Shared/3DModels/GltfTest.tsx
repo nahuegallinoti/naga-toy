@@ -55,8 +55,8 @@ const GltfTest: React.FC<GLTFViewerProps> = ({
 
   // Cargar texturas
   const textures = {
-    colorMap: colorMapPath ? useTexture(colorMapPath) : null,
-    normalMap: normalMapPath ? useTexture(normalMapPath) : null,
+    colorMap: useTexture(colorMapPath || ""),
+    normalMap: useTexture(normalMapPath || ""),
     roughnessMap: useTexture(roughnessMapPath || ""), // Siempre llamar useTexture
   };
 
@@ -65,9 +65,9 @@ const GltfTest: React.FC<GLTFViewerProps> = ({
     if (child.isMesh) {
       child.material = new MeshStandardMaterial({
         color: color, // Usar el color parametrizado
-        map: textures.colorMap || null, // Textura principal
-        normalMap: textures.normalMap || null, // Textura para detalles de relieve
-        roughnessMap: textures.roughnessMap || null, // Textura para rugosidad (opcional)
+        map: textures.colorMap, // Textura principal
+        normalMap: textures.normalMap, // Textura para detalles de relieve
+        roughnessMap: textures.roughnessMap, // Textura para rugosidad (opcional)
         metalness: metalness, // Configuración PBR para metal
         roughness: roughness, // Configuración PBR para rugosidad
       });
