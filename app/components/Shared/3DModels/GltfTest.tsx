@@ -57,7 +57,7 @@ const GltfTest: React.FC<GLTFViewerProps> = ({
   const textures = {
     colorMap: colorMapPath ? useTexture(colorMapPath) : null,
     normalMap: normalMapPath ? useTexture(normalMapPath) : null,
-    roughnessMap: roughnessMapPath ? useTexture(roughnessMapPath) : null,
+    roughnessMap: useTexture(roughnessMapPath || ""), // Siempre llamar useTexture
   };
 
   // Aplicar materiales a las mallas
