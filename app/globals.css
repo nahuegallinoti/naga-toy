@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #0f1624;
+}
+
+.filling-text {  
+  -webkit-text-stroke: 0.75px #fff;
+  position: relative;
+}
+
+.filling-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0px;
+  color: rgb(122, 9, 132);
+  overflow: hidden;
+  white-space: nowrap;
+  
+}
+
+.filling-text:hover::after {
+  animation: moveText 0.5s steps(20, end) forwards;
+}
+
+@keyframes moveText {
+  to {
+    width: 100%;        
+  }
+}
