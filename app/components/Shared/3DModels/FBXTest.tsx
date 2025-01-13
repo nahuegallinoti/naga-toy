@@ -57,7 +57,7 @@ const FBXTest: React.FC<FBXTestProps> = ({
   const textures = {
     colorMap: useTexture(colorMapPath), // Textura de color
     normalMap: useTexture(normalMapPath), // Textura normal
-    roughnessMap: roughnessMapPath ? useTexture(roughnessMapPath) : undefined, // Textura de rugosidad
+    roughnessMap: useTexture(roughnessMapPath || ""), // Siempre llamar useTexture
   };
 
   // Aplicar materiales a las mallas
