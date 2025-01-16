@@ -54,8 +54,8 @@ const Heros: React.FC = () => {
           fbxName="Machine2.fbx"
           color={color}
           colorMapPath="/textures/M2.png"
-          normalMapPath="/textures/Skin_04_Normal.jpg"
-          roughnessMapPath="/textures/Skin_04_Normal.jpg"
+          normalMapPath="/textures/Skin_04_normal.jpg"
+          roughnessMapPath="/textures/Skin_04_normal.jpg"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -86,8 +86,8 @@ const Heros: React.FC = () => {
           fbxName="Pepito.fbx"
           color={color}
           colorMapPath="/textures/M2.png"
-          normalMapPath="/textures/Skin_04_Normal.jpg"
-          roughnessMapPath="/textures/Skin_04_Normal.jpg"
+          normalMapPath="/textures/Skin_04_normal.jpg"
+          roughnessMapPath="/textures/Skin_04_normal.jpg"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -102,8 +102,8 @@ const Heros: React.FC = () => {
           fbxName="Submarine.fbx"
           color={color}
           colorMapPath="/textures/M2.png"
-          normalMapPath="/textures/Skin_04_Normal.jpg"
-          roughnessMapPath="/textures/Skin_04_Normal.jpg"
+          normalMapPath="/textures/Skin_04_normal.jpg"
+          roughnessMapPath="/textures/Skin_04_normal.jpg"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
