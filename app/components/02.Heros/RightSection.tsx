@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 
 interface RightSectionProps {
   hero: string;
@@ -10,13 +8,15 @@ interface RightSectionProps {
 
 const RightSection: React.FC<RightSectionProps> = ({ hero, onRotateToggle, rotate }) => {
   const descriptions: Record<string, string> = {
-    Pepito: "A fearless adventurer driven by a thirst for discovery. Always leading the charge, Pepito tackles every challenge with unwavering determination and a contagious smile.",
-    Gear: "An ingenious inventor who thrives on innovation. With a knack for solving complex problems, Gear transforms ideas into reality, shaping a future full of possibilities.",
-    Submarine: "A mechanical marvel designed for deep-sea exploration. The Submarine braves the ocean's depths with precision and resilience, uncovering secrets hidden beneath the waves.",
+    // Unidesa: "A fearless adventurer driven by a thirst for discovery. Always leading the charge, Pepito tackles every challenge with unwavering determination and a contagious smile.",
+    // Aristocrat: "An ingenious inventor who thrives on innovation. With a knack for solving complex problems, Gear transforms ideas into reality, shaping a future full of possibilities.",
+    // Gear: "A mechanical marvel designed for deep-sea exploration. The Submarine braves the ocean's depths with precision and resilience, uncovering secrets hidden beneath the waves.",
+    // Pepito: "A mechanical marvel designed for deep-sea exploration. The Submarine braves the ocean's depths with precision and resilience, uncovering secrets hidden beneath the waves.",
+    // Submarine: "A mechanical marvel designed for deep-sea exploration. The Submarine braves the ocean's depths with precision and resilience, uncovering secrets hidden beneath the waves.",
   };
 
   return (
-    <div className="flex flex-col w-2/3 h-fit m-auto justify-center">
+    <div className="flex flex-col w-1/3 h-fit m-auto justify-center pr-10">
       <h1 className="text-center text-2xl">{hero}</h1>
       <p className="text-md my-3">{descriptions[hero]}</p>
       <button

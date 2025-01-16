@@ -26,7 +26,7 @@ const RightSection = () => {
         width={1000}
         height={1000}
         alt="moon"
-        className="flex w-52 h-52 md:w-screen md:h-screen opacity-40 md:opacity-100 object-contain absolute top-0 bottom-0 right-0 m-auto animate-fly"
+        className="flex md:w-screen md:h-screen opacity-40 md:opacity-100 object-contain absolute top-0 bottom-0 right-0 m-auto animate-fly"
       />
     </div>
   );

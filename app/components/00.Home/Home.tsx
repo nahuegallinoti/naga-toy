@@ -6,7 +6,7 @@ import RightSection from "./RightSection";
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-between h-screen snap-center">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="h-screen flex justify-center md:gap-5 md:w-screen md:items-center md:opacity-85">
         <LeftSection />
         <RightSection />

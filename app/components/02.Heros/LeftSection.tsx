@@ -2,9 +2,11 @@ import React from "react";
 import Divider from "../Shared/Divider";
 
 const data = [
-  "Pepito",
+  "Unidesa",
+  "Aristocrat",
   "Gear",
-  "Submarine",
+  "Pepito",
+  "Submarine"
 ];
 
 const LeftSection = ({ handleMouseEnter }: any) => {

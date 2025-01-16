@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import { useFBX, useTexture, OrbitControls, Environment, Sparkles } from "@react-three/drei";
 import { MeshStandardMaterial } from "three";
-import { useFrame } from "@react-three/fiber";
 
 // Tipos de los presets de entorno definidos en presetsObj
 export declare const presetsObj: {
@@ -47,43 +46,44 @@ const FBXTest: React.FC<FBXTestProps> = ({
   sparklesEnabled = true,
   environmentPreset = "city",
 }) => {
-  // Referencia para animar el modelo
   const modelRef = useRef<THREE.Group>(null);
+
+  // Cargar las texturas directamente usando useTexture
+  const colorMap = useTexture(colorMapPath);
+  const normalMap = useTexture(normalMapPath);
+  const roughnessMap = useTexture(roughnessMapPath || "");
 
   // Cargar el modelo FBX
   const fbx = useFBX(fbxName);
 
-  // Cargar texturas
-  const textures = {
-    colorMap: useTexture(colorMapPath), // Textura de color
-    normalMap: useTexture(normalMapPath), // Textura normal
-    roughnessMap: useTexture(roughnessMapPath || ""), // Siempre llamar useTexture
-  };
-
-  // Aplicar materiales a las mallas
-  fbx.traverse((child: any) => {
-    if (child.isMesh) {
-      child.material = new MeshStandardMaterial({
-        color: color, // Usar el color parametrizado
-        map: textures.colorMap, // Textura principal
-        normalMap: textures.normalMap, // Textura para detalles de relieve
-        roughnessMap: textures.roughnessMap, // Textura para rugosidad (opcional)
-        metalness: metalness, // Configuración PBR para metal
-        roughness: roughness, // Configuración PBR para rugosidad
-      });
-    }
-  });
-
-  // Animar el modelo
-  useFrame(({ clock }) => {
-    if (modelRef.current) {
-
-      // Rotación continua del modelo según la velocidad configurada
-      if (autoRotate)
-        modelRef.current.rotation.y += autoRotateSpeed * 0.001;
-
+  // Aplicar materiales a las mallas después de cargar el FBX
+  if (fbx) {
+    fbx.traverse((child: any) => {
+      if (child.isMesh) {
+        child.material = new MeshStandardMaterial({
+          color: color, // Usar el color parametrizado
+          map: colorMap, // Textura principal
+          normalMap: normalMap, // Textura para detalles de relieve
+          roughnessMap: roughnessMap, // Textura para rugosidad (opcional)
+          metalness: metalness, // Configuración PBR para metal
+          roughness: roughness, // Configuración PBR para rugosidad
+        });
+      }
+    });
   }
-  });
+
+  // Utilizar useEffect para manejar la rotación automática
+  useEffect(() => {
+    if (autoRotate && modelRef.current) {
+      const interval = setInterval(() => {
+        if (modelRef.current) {
+          modelRef.current.rotation.y += autoRotateSpeed * 0.001;
+        }
+      }, 16); // Aproximadamente 60 FPS
+
+      return () => clearInterval(interval);
+    }
+  }, [autoRotate, autoRotateSpeed]);
 
   return (
     <group>
