@@ -37,8 +37,8 @@ interface FBXTestProps {
 const FBXTest: React.FC<FBXTestProps> = ({
   fbxName,
   color = "#ffffff", // Valor por defecto blanco
-  colorMapPath = "/textures/Skin_04_basecolor.jpg", // Textura por defecto
-  normalMapPath = "/textures/Skin_04_normal.jpg", // Textura por defecto
+  colorMapPath = "/textures/t1.jpg", // Textura por defecto
+  normalMapPath = "/textures/t1.jpg", // Textura por defecto
   roughnessMapPath,
   metalness = 0.7,
   roughness = 0.8,
