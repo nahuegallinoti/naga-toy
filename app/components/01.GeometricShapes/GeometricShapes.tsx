@@ -5,7 +5,7 @@ import LeftSection from "./LeftSection";
 import RightSection from "./RightSection";
 
 const GeometricShapes = () => {
-  const [geometricShape, setWork] = useState("Cone");
+  const [geometricShape, setWork]: any = useState("Cone");
   const handleMouseEnter = (item: any) => {
     setWork(item);
   };

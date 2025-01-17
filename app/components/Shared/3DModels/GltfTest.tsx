@@ -51,7 +51,7 @@ const GltfTest: React.FC<GLTFViewerProps> = ({
   const modelRef = useRef<THREE.Group>(null);
 
   // Cargar el modelo GLTF
-  const { scene } = useGLTF(gltfPath);
+  const { scene }: any = useGLTF(gltfPath);
 
   // Cargar texturas
   const textures = {

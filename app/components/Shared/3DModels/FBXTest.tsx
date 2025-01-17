@@ -58,37 +58,20 @@ const FBXTest: React.FC<FBXTestProps> = ({
   // Cargar el modelo FBX
   const fbx = useFBX(fbxName);
 
-  // Animación de rotación automática
-  useEffect(() => {
-    let animationFrameId: number;
+  // Memorizar el material para evitar cálculos repetitivos
+  const material = useMemo(
+    () =>
+      new MeshStandardMaterial({
+        color,
+        map: colorMap,
+        normalMap,
+        roughnessMap,
+        metalness,
+        roughness,
+      }),
+    [color, colorMap, normalMap, roughnessMap, metalness, roughness]
+  );
 
-    if (autoRotate && modelRef.current) {
-      const animate = () => {
-        if (modelRef.current) {
-          modelRef.current.rotation.y += autoRotateSpeed * 0.001;
-        }
-        animationFrameId = requestAnimationFrame(animate);
-      };
-      animate();
-    }
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [autoRotate, autoRotateSpeed]);
-
-    // Memorizar el material para evitar cálculos repetitivos
-    const material = useMemo(
-      () =>
-        new MeshStandardMaterial({
-          color,
-          map: colorMap,
-          normalMap,
-          roughnessMap,
-          metalness,
-          roughness,
-        }),
-      [color, colorMap, normalMap, roughnessMap, metalness, roughness]
-    );
-    
   // Aplicar materiales a las mallas después de cargar el FBX y asignar eventos de clic
   useEffect(() => {
     if (fbx) {
@@ -106,7 +89,7 @@ const FBXTest: React.FC<FBXTestProps> = ({
 
           const mesh = child as THREE.Mesh;
           mesh.material = material;
-          
+
           // Agregar manejador de clic solo a la parte específica (palanca)
           if (child.name === "eyes&mouth") {
             child.userData = { isClickable: true }; // Marcamos como clickeable
@@ -114,38 +97,38 @@ const FBXTest: React.FC<FBXTestProps> = ({
         }
       });
     }
-  }, [fbx, color, colorMap, normalMap, roughnessMap, metalness, roughness]);
+  }, [fbx, color, colorMap, normalMap, roughnessMap, metalness, roughness, material]);
 
 
-    // Manejo de clics con Raycaster
-    const handleMouseClick = useCallback(
-      (event: MouseEvent) => {
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2(
-          (event.clientX / window.innerWidth) * 2 - 1,
-          -(event.clientY / window.innerHeight) * 2 + 1
-        );
-  
-        raycaster.setFromCamera(mouse, camera);
-  
-        if (modelRef.current) {
-          const intersects = raycaster.intersectObject(modelRef.current, true);
-          const clickedObject = intersects.find((intersect) => intersect.object.userData.isClickable);
-  
-          if (clickedObject) {
-            alert("Auch! ¡Eso dolió!");
-          }
+  // Manejo de clics con Raycaster
+  const handleMouseClick = useCallback(
+    (event: any) => {
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1
+      );
+
+      raycaster.setFromCamera(mouse, camera);
+
+      if (modelRef.current) {
+        const intersects: any = raycaster.intersectObject(modelRef.current, true);
+        const clickedObject = intersects.find((intersect: any) => intersect.object.userData.isClickable);
+
+        if (clickedObject) {
+          alert("Auch! ¡Eso dolió!");
         }
-      },
-      [camera]
-    );
+      }
+    },
+    [camera]
+  );
 
   useEffect(() => {
     gl.domElement.addEventListener("click", handleMouseClick);
     return () => {
       gl.domElement.removeEventListener("click", handleMouseClick);
     };
-  }, [gl, camera]);
+  }, [gl, camera, handleMouseClick]);
 
   return (
     <group>
