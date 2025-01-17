@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Loader, OrbitControls } from "@react-three/drei";
 
 const CanvasSection = ({ model }: any) => {
-  const [rotate, setRotate] = useState(true);
+  const [rotate, setRotate]: any = useState(true);
 
   return (
     <div className="flex flex-col gap-5 justify-center w-2/5 h-full">

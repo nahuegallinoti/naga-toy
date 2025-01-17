@@ -237,13 +237,13 @@
   ],
   "images": [
     {
-      "uri": "textures/baseColor.jpg"
+      "uri": "textures/t1.jpg"
     },
     {
-      "uri": "textures/occlusionRoughnessMetallic.jpg"
+      "uri": "textures/t2.jpg"
     },
     {
-      "uri": "textures/normal.png"
+      "uri": "textures/t3.png"
     }
   ],
   "textures": [

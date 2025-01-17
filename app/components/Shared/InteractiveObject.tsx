@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { extend, useFrame } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { PerspectiveCamera, RenderTexture, Text, Sparkles } from "@react-three/drei";
 import { Mesh } from "three";
-
-extend({ PerspectiveCamera, RenderTexture, Text });
 
 const InteractiveObject = ({
     geometryType,
@@ -18,7 +16,7 @@ const InteractiveObject = ({
 }: InteractiveObjectProps) => {
     const meshRef = useRef<Mesh>(null!);
     const textRef = useRef<Mesh>(null!);
-    const [isDragging, setIsDragging] = useState(false);
+    const [isDragging, setIsDragging]: any = useState(false);
 
     // Rotación continua
     useFrame(() => {
