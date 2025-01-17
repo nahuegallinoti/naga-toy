@@ -1,8 +1,8 @@
 import React from "react";
-import InteractiveObject from "../../Shared/Components/InteractiveObject";
-import SectionContainer from "../../Shared/Components/Sections/ContainerSection";
-import CanvasSection from "../../Shared/Components/Sections/CanvasSection";
-import RightSectionText from "../../Shared/Components/Sections/RightSection";
+import InteractiveObject from "../../Shared/InteractiveObject";
+import SectionContainer from "../../Shared/Sections/ContainerSection";
+import CanvasSection from "../../Shared/Sections/CanvasSection";
+import RightSectionText from "../../Shared/Sections/RightSection";
 
 const ConeGeometry = () => {
     return (

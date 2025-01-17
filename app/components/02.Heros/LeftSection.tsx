@@ -1,5 +1,5 @@
 import React from "react";
-import Divider from "../Shared/Divider";
+import Divider from "../Shared/UI/Divider";
 
 const data = [
   "Unidesa",

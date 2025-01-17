@@ -3,7 +3,7 @@
 import React, { useState, useMemo, lazy, Suspense } from "react";
 import LeftSection from "./LeftSection";
 import RightSection from "./RightSection";
-import ModelVisualizer from "../Shared/ModelVisualizer";
+import ModelVisualizer from "../Shared/3DModels/ModelVisualizer";
 
 // Lazy loading of heavy components
 const FBXTest = lazy(() => import("../Shared/3DModels/FBXTest"));
@@ -22,24 +22,16 @@ const Heros: React.FC = () => {
 
   const { metalness, roughness, color, sparklesEnabled } = modelProps;
 
-  const handleMouseEnter = (item: string) => {
-    setHero(item);
-  };
-
-  const toggleRotation = () => {
-    setRotate((prevState) => !prevState);
-  };
-
   // Use memoization to avoid unnecessary recalculations
   const models: Record<string, React.ReactNode> = useMemo(() => ({
     Unidesa: (
       <Suspense fallback={<>Loading Model...</>}>
         <FBXTest
-          fbxName="Machine.fbx"
+          fbxName="/models/Machine.fbx"
           color={color}
-          colorMapPath="/textures/M1.png"
-          normalMapPath="/textures/Skin_04_normal.jpg"
-          roughnessMapPath="/textures/t1.jpg"
+          colorMapPath="/textures/TM1.png"
+          normalMapPath="/textures/t3.png"
+          roughnessMapPath="/textures/TM2.png"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -51,11 +43,11 @@ const Heros: React.FC = () => {
     Aristocrat: (
       <Suspense fallback={<>Loading Model...</>}>
         <FBXTest
-          fbxName="Machine2.fbx"
+          fbxName="/models/Machine2.fbx"
           color={color}
-          colorMapPath="/textures/M2.png"
-          normalMapPath="/textures/Skin_04_normal.jpg"
-          roughnessMapPath="/textures/Skin_04_normal.jpg"
+          colorMapPath="/textures/TM2.png"
+          normalMapPath="/textures/t3.png"
+          roughnessMapPath="/textures/t12.png"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -67,11 +59,11 @@ const Heros: React.FC = () => {
     Gear: (
       <Suspense fallback={<>Loading Model...</>}>
         <GltfTest
-          gltfPath="/gltf/Gear2.gltf"
+          gltfPath="/models/Gear2.gltf"
           color={color}
-          colorMapPath="/gltf/textures/baseColor.jpg"
-          normalMapPath="/textures/Skin_04_normal.jpg"
-          roughnessMapPath="/gltf/textures/occlusionRoughnessMetallic.jpg"
+          colorMapPath="/textures/t2.jpg"
+          normalMapPath="/textures/t2.jpg"
+          roughnessMapPath="/textures/t8.jpg"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -83,11 +75,11 @@ const Heros: React.FC = () => {
     Pepito: (
       <Suspense fallback={<>Loading Model...</>}>
         <FBXTest
-          fbxName="Pepito.fbx"
+          fbxName="/models/Pepito.fbx"
           color={color}
-          colorMapPath="/textures/M2.png"
-          normalMapPath="/textures/Skin_04_normal.jpg"
-          roughnessMapPath="/textures/Skin_04_normal.jpg"
+          colorMapPath="/textures/TM2.png"
+          normalMapPath="/textures/t1.jpg"
+          roughnessMapPath="/textures/t2.jpg"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -99,11 +91,11 @@ const Heros: React.FC = () => {
     Submarine: (
       <Suspense fallback={<>Loading Model...</>}>
         <FBXTest
-          fbxName="Submarine.fbx"
+          fbxName="/models/Submarine.fbx"
           color={color}
-          colorMapPath="/textures/M2.png"
-          normalMapPath="/textures/Skin_04_normal.jpg"
-          roughnessMapPath="/textures/Skin_04_normal.jpg"
+          colorMapPath="/textures/TM1.png"
+          normalMapPath="/textures/t1.jpg"
+          roughnessMapPath="/textures/t1.jpg"
           metalness={metalness}
           roughness={roughness}
           autoRotateSpeed={3}
@@ -113,6 +105,15 @@ const Heros: React.FC = () => {
       </Suspense>
     ),
   }), [color, metalness, roughness, sparklesEnabled]);
+
+
+  const handleMouseEnter = (item: string) => {
+    setHero(item);
+  };
+
+  const toggleRotation = () => {
+    setRotate((prevState) => !prevState);
+  };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>, prop: string) => {
     setModelProps((prevState) => ({

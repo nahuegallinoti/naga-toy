@@ -1,5 +1,5 @@
 import React from "react";
-import Divider from "../../Divider";
+import Divider from "../UI/Divider";
 
 const RightSectionText = ({ title, subtitle }: { title: string, subtitle: string }) => {
   return (

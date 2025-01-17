@@ -3,7 +3,7 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stage } from "@react-three/drei";
-import Loader from "./Loader";
+import Loader from "../UI/Loader";
 
 interface ModelVisualizerProps {
   rotate: boolean;
