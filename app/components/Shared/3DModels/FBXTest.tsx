@@ -1,7 +1,8 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback, useMemo } from "react";
 import * as THREE from "three";
 import { useFBX, useTexture, OrbitControls, Environment, Sparkles } from "@react-three/drei";
 import { MeshStandardMaterial } from "three";
+import { useThree } from "@react-three/fiber";
 
 // Tipos de los presets de entorno definidos en presetsObj
 export declare const presetsObj: {
@@ -47,6 +48,7 @@ const FBXTest: React.FC<FBXTestProps> = ({
   environmentPreset = "city",
 }) => {
   const modelRef = useRef<THREE.Group>(null);
+  const { camera, gl } = useThree();
 
   // Cargar las texturas directamente usando useTexture
   const colorMap = useTexture(colorMapPath);
@@ -56,57 +58,105 @@ const FBXTest: React.FC<FBXTestProps> = ({
   // Cargar el modelo FBX
   const fbx = useFBX(fbxName);
 
-  // Aplicar materiales a las mallas después de cargar el FBX
-  if (fbx) {
-    fbx.traverse((child: any) => {
-      if (child.isMesh) {
-        child.material = new MeshStandardMaterial({
-          color: color, // Usar el color parametrizado
-          map: colorMap, // Textura principal
-          normalMap: normalMap, // Textura para detalles de relieve
-          roughnessMap: roughnessMap, // Textura para rugosidad (opcional)
-          metalness: metalness, // Configuración PBR para metal
-          roughness: roughness, // Configuración PBR para rugosidad
-        });
-      }
-    });
-  }
-
-  // Utilizar useEffect para manejar la rotación automática
+  // Animación de rotación automática
   useEffect(() => {
+    let animationFrameId: number;
+
     if (autoRotate && modelRef.current) {
-      const interval = setInterval(() => {
+      const animate = () => {
         if (modelRef.current) {
           modelRef.current.rotation.y += autoRotateSpeed * 0.001;
         }
-      }, 16); // Aproximadamente 60 FPS
-
-      return () => clearInterval(interval);
+        animationFrameId = requestAnimationFrame(animate);
+      };
+      animate();
     }
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, [autoRotate, autoRotateSpeed]);
+
+    // Memorizar el material para evitar cálculos repetitivos
+    const material = useMemo(
+      () =>
+        new MeshStandardMaterial({
+          color,
+          map: colorMap,
+          normalMap,
+          roughnessMap,
+          metalness,
+          roughness,
+        }),
+      [color, colorMap, normalMap, roughnessMap, metalness, roughness]
+    );
+    
+  // Aplicar materiales a las mallas después de cargar el FBX y asignar eventos de clic
+  useEffect(() => {
+    if (fbx) {
+      fbx.traverse((child: any) => {
+        console.log(child.name);
+        if ((child as THREE.Mesh).isMesh) {
+          child.material = new MeshStandardMaterial({
+            color: color,
+            map: colorMap,
+            normalMap: normalMap,
+            roughnessMap: roughnessMap,
+            metalness: metalness,
+            roughness: roughness,
+          });
+
+          const mesh = child as THREE.Mesh;
+          mesh.material = material;
+          
+          // Agregar manejador de clic solo a la parte específica (palanca)
+          if (child.name === "eyes&mouth") {
+            child.userData = { isClickable: true }; // Marcamos como clickeable
+          }
+        }
+      });
+    }
+  }, [fbx, color, colorMap, normalMap, roughnessMap, metalness, roughness]);
+
+
+    // Manejo de clics con Raycaster
+    const handleMouseClick = useCallback(
+      (event: MouseEvent) => {
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2(
+          (event.clientX / window.innerWidth) * 2 - 1,
+          -(event.clientY / window.innerHeight) * 2 + 1
+        );
+  
+        raycaster.setFromCamera(mouse, camera);
+  
+        if (modelRef.current) {
+          const intersects = raycaster.intersectObject(modelRef.current, true);
+          const clickedObject = intersects.find((intersect) => intersect.object.userData.isClickable);
+  
+          if (clickedObject) {
+            alert("Auch! ¡Eso dolió!");
+          }
+        }
+      },
+      [camera]
+    );
+
+  useEffect(() => {
+    gl.domElement.addEventListener("click", handleMouseClick);
+    return () => {
+      gl.domElement.removeEventListener("click", handleMouseClick);
+    };
+  }, [gl, camera]);
 
   return (
     <group>
-      {/* Entorno */}
       <Environment preset={environmentPreset} />
-
-      {/* Luces */}
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} intensity={1.5} />
-      <spotLight position={[0, 10, 0]} angle={0.3} penumbra={1} intensity={2} castShadow />
-
-      {/* Efectos especiales */}
-      {sparklesEnabled && (
-        <Sparkles size={5} scale={[10, 10, 10]} speed={1} count={100} />
-      )}
-
-      {/* Modelo con animación */}
+      {sparklesEnabled && <Sparkles size={5} scale={[10, 10, 10]} speed={1} count={100} />}
       <group ref={modelRef} scale={[0.01, 0.01, 0.01]} position={[0, -1, 0]}>
         <primitive object={fbx} />
       </group>
-
-      {/* Controles de cámara */}
-      <OrbitControls autoRotateSpeed={autoRotateSpeed} enableZoom enablePan />
+      <OrbitControls autoRotate={autoRotate} autoRotateSpeed={autoRotateSpeed} enableZoom enablePan />
     </group>
   );
 };
